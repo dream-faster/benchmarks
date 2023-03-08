@@ -15,15 +15,15 @@ def preprocess_m4(data):
     data['ds'] = data['ds']-1
     return data
 
-data = preprocess_m4(pd.read_csv('Monthly-train.csv', nrows=100))
+data = preprocess_m4(pd.read_csv('datasets/m4/Monthly-train.csv', nrows=100))
 # data_test = preprocess_m4(pd.read_csv('Monthly-test.csv', nrows=100))
 # merge train & test sets
 
 
-from drift.transformations.base import BlocksOrWrappable
-from drift.models.baseline import BaselineNaiveContinuous
-from drift.loop import train, backtest
-from drift.splitters import SlidingWindowSplitter
+from fold.transformations.base import BlocksOrWrappable
+from fold.models.baseline import BaselineNaive
+from fold.loop import train, backtest
+from fold.splitters import SlidingWindowSplitter
 from krisi import score
 
 def run_drift_on_each_series(
