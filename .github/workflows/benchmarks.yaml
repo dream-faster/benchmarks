@@ -1,0 +1,46 @@
+name: benchmarks
+
+on:
+  push:
+
+permissions:
+  contents: write
+
+jobs:
+  run-tests:
+    strategy:
+      matrix:
+        os:
+        - ubuntu-latest
+        python-version:
+        - "3.9"
+
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+
+      - name: setup-python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: install-dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          
+      - name: run-benchmarks
+        shell: bash -l {0}
+        run: |
+          python main.py
+
+      - name: commit-results
+        run: | 
+          git config --global user.name "Github Action"
+          git config --global user.email "bot@github.com"
+          git add -A
+          git commit -m "feature(Result): Added new benchmarking results."
+          git push
