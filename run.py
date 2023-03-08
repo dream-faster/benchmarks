@@ -2,7 +2,6 @@ from typing import List, Tuple
 
 import pandas as pd
 from fold.loop import backtest, train
-from fold.models.baseline import BaselineNaive
 from fold.splitters import SlidingWindowSplitter
 from fold.transformations.base import BlocksOrWrappable
 from krisi import score
@@ -31,9 +30,9 @@ def run_datasets_on_models(
 ) -> List[Tuple[str, float]]:
     return [
         (
-            f"{model.__class__.__name__}-{data.name}",
+            f"{model.__class__.__name__}-{data.name if hasattr(data, 'name') else str(i)}",
             float(run_dataset_on_model(data, model)),
         )
-        for data in datasets
+        for i, data in enumerate(datasets)
         for model in models
     ]
