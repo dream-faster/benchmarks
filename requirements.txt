@@ -1,0 +1,4 @@
+- https://github.com/dream-faster/fold/archive/main.zip
+- pandas
+- numpy
+- krisi
