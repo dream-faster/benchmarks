@@ -8,7 +8,7 @@ from krisi import score
 from numpy import average
 
 
-def run_dataset_on_model(data: pd.DataFrame, blocks: BlocksOrWrappable):
+def run_dataset_on_model(data: pd.DataFrame, blocks: BlocksOrWrappable) -> float:
     ids = data["unique_id"].unique()
     smapes = []
     weights = []
@@ -22,7 +22,7 @@ def run_dataset_on_model(data: pd.DataFrame, blocks: BlocksOrWrappable):
         preds = backtest(blocks_over_time, X, y, splitter)
         smapes.append(score(y[preds.index], preds.squeeze())["smape"].result)
         weights.append(len(y))
-    return average(smapes, weights=weights)
+    return float(average(smapes, weights=weights))
 
 
 def run_datasets_on_models(
