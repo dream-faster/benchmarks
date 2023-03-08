@@ -17,10 +17,10 @@ def run_dataset_on_model(data: pd.DataFrame, blocks: BlocksOrWrappable):
         X = data[data["unique_id"] == id].set_index("ds")["y"]
         y = X.shift(-1)[:-1]
         X = X[:-1].to_frame()
-        splitter = SlidingWindowSplitter(100, 20)
+        splitter = SlidingWindowSplitter(0.2, 20)
         blocks_over_time = train(blocks, X, y, splitter)
-        _, preds = backtest(blocks_over_time, X, y, splitter)
-        smapes.append(score(y[preds.index], preds.squeeze())["smape"])
+        preds = backtest(blocks_over_time, X, y, splitter)
+        smapes.append(score(y[preds.index], preds.squeeze())["smape"].result)
         weights.append(len(y))
     return average(smapes, weights=weights)
 
