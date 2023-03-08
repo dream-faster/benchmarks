@@ -31,6 +31,7 @@ jobs:
           pip install -r requirements.txt
           
       - name: run-benchmarks
+        shell: bash -l {0}
         run: |
           python main.py
 
