@@ -39,6 +39,8 @@ jobs:
 
       - name: commit-results
         run: | 
+          git config --global user.name "Github Action"
+          git config --global user.email "bot@github.com"
           git add -A
           git commit -m "feature(Result): Added new benchmarking results."
           git push
