@@ -3,6 +3,8 @@ from typing import Callable, List
 import pandas as pd
 from fold.transformations.base import BlocksOrWrappable
 
+from datasets.m4.preprocess import preprocess
+from models.get_models import get_all_models
 from run import run_datasets_on_models
 
 
@@ -20,9 +22,6 @@ def run_pipeline(
 
 
 def main():
-    from datasets.m4.preprocess import preprocess
-    from models.get_models import get_all_models
-
     results = run_pipeline([preprocess, preprocess], get_all_models())
     save_results(results)
 

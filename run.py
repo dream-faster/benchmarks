@@ -9,12 +9,10 @@ from numpy import average
 
 
 def run_dataset_on_model(data: pd.DataFrame, blocks: BlocksOrWrappable) -> float:
-    # ids = data["unique_id"].unique()
     smapes = []
     weights = []
 
     for column in data.columns:
-        # X = data[data["unique_id"] == id].set_index("ds")["y"]
         X = data[[column]]
         y = X[column].shift(-1)[:-1]
         X = X[:-1]
@@ -31,12 +29,18 @@ def run_datasets_on_models(
 ) -> pd.DataFrame:
     dfs = []
     for i, dataset in enumerate(datasets):
-        ds = pd.Series([])
-        ds.name = dataset.name + f"_{str(i)}" if hasattr(dataset, "name") else str(i)
+        ds = pd.Series(
+            [],
+            name=dataset.columns.name + f"_{str(i)}"
+            if hasattr(dataset.columns, "name")
+            else str(i),
+        )
         for j, model in enumerate(models):
             ds[model.__class__.__name__ + f"_{str(j)}"] = float(
                 run_dataset_on_model(dataset, model)
             )
         dfs.append(ds)
 
-    return pd.concat(dfs, axis=1)
+    df = pd.concat(dfs, axis=1)
+    df.index = df.index.rename("model_name")
+    return df
