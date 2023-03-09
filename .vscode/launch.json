@@ -12,11 +12,11 @@
             "program": "${workspaceFolder}/command.py",
             "args":[
                 "--models",
-                "BaselineNaive",
+                "BaselineNaive,BaselineNaiveSeasonal",
                 "--datasets",
                 "m4"
             ],
-            "justMyCode":false,
+            // "justMyCode":false,
         }
     ]
   }

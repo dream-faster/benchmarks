@@ -31,8 +31,8 @@ def main(
         get_all_datasets() if dataset_names is None else get_datasets(dataset_names)
     )
 
-    results = run_pipeline(preprocess_functions, model_objects)
-    save_results(results)
+    results_df = run_pipeline(preprocess_functions, model_objects)
+    save_results(results_df)
 
 
 if __name__ == "__main__":

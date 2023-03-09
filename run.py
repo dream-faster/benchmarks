@@ -8,23 +8,33 @@ from krisi import score
 from numpy import average
 
 
-def run_dataset_on_model(data: pd.DataFrame, blocks: BlocksOrWrappable) -> float:
-    smapes = []
+def run_dataset_on_model(dataset: pd.DataFrame, model: BlocksOrWrappable) -> pd.Series:
+    dss = []
     weights = []
 
-    for column in data.columns:
-        X = data[[column]]
+    for column in dataset.columns:
+        X = dataset[[column]]
         y = X[column].shift(-1)[:-1]
         X = X[:-1]
         splitter = SlidingWindowSplitter(0.2, 20)
-        blocks_over_time = train(blocks, X, y, splitter)
+        blocks_over_time = train(model, X, y, splitter)
         preds = backtest(blocks_over_time, X, y, splitter)
-        smapes.append(score(y[preds.index], preds.squeeze())["smape"].result)
-        # smapes.append(score(y[preds.index], preds.squeeze()).get_df())
+        # smapes.append(score(y[preds.index], preds.squeeze())["smape"].result)
+        dss.append(score(y[preds.index], preds.squeeze()).get_ds())
         weights.append(len(y))
 
-    # scores = pd.Series([float(average(smapes, weights=weights))])
-    return float(average(smapes, weights=weights))
+    df = pd.concat(dss, axis=1)
+    ds = pd.Series(average(df, axis=1, weights=weights), index=df.index)
+    ds_with_meta = pd.concat(
+        [
+            pd.Series(
+                [model.__class__.__name__, dataset.columns.name],
+                index=["model", "dataset"],
+            ),
+            ds,
+        ]
+    )
+    return ds_with_meta
 
 
 def run_datasets_on_models(
@@ -32,18 +42,16 @@ def run_datasets_on_models(
 ) -> pd.DataFrame:
     dfs = []
     for i, dataset in enumerate(datasets):
-        ds = pd.Series(
-            [],
-            name=dataset.columns.name + f"_{str(i)}"
-            if hasattr(dataset.columns, "name")
-            else str(i),
-        )
         for j, model in enumerate(models):
-            ds[model.__class__.__name__ + f"_{str(j)}"] = float(
-                run_dataset_on_model(dataset, model)
+            ds = run_dataset_on_model(dataset, model)
+            ds.name = (
+                model.__class__.__name__ + " - " + dataset.columns.name
+                if hasattr(dataset.columns, "name")
+                else str(i)
             )
-        dfs.append(ds)
 
-    df = pd.concat(dfs, axis=1)
-    df.index = df.index.rename("model_name")
-    return df
+            dfs.append(ds)
+
+    df_summary = pd.concat(dfs, axis=1)  # .transpose()
+    df_summary.index = df_summary.index.rename("model_dataset_name")
+    return df_summary
