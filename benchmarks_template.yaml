@@ -17,10 +17,9 @@ jobs:
         python-version:
         - "3.9"
         dataset:
-        - "m4"
+        - "{dataset_list}"
         model:
-        - "BaselineNaive"
-        - "BaselineNaiveSeasonal"
+        - "{model_list}"
 
 
     runs-on: ${{ matrix.os }}
@@ -49,5 +48,5 @@ jobs:
           git config --global user.name "Github Action"
           git config --global user.email "info@dreamfaster.ai"
           git add -A
-          git diff --quiet && git diff --staged --quiet || git commit -m "feature(Result): Added new benchmarking results for m4 - BaselineNaive,BaselineNaiveSeasonal."
+          git diff --quiet && git diff --staged --quiet || git commit -m "feature(Result): Added new benchmarking results for {dataset_names} - {model_names}."
           git push

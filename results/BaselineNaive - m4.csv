@@ -1,0 +1,12 @@
+model_dataset_name,BaselineNaive - m4
+model,BaselineNaive
+dataset,m4
+Mean Absolute Error,176.83
+Mean Absolute Percentage Error,0.03947428772763122
+Symmetric Mean Absolute Percentage Error,0.019777394181454674
+Mean Squared Error,130331.83999999998
+Root Mean Squared Error,234.97138747653037
+Root Mean Squared Log Error,0.05202326595824796
+R-squared,0.4672900525374957
+Mean of the Residuals,-4.37
+Standard Deviation of the Residuals,234.54261750727022

@@ -1,5 +1,5 @@
 https://github.com/dream-faster/fold/archive/main.zip
 pandas
 numpy
-krisi
+https://github.com/dream-faster/krisi/archive/main.zip
 pytest
