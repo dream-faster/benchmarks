@@ -35,7 +35,7 @@ jobs:
       - name: run-benchmarks
         shell: bash -l {0}
         run: |
-          python command.py --model "{model_names}" --dataset "{dataset_names}"
+          python command.py --models "{model_names}" --datasets "{dataset_names}"
 
       - name: commit-results
         run: | 

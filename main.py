@@ -36,4 +36,4 @@ def main(
 
 
 if __name__ == "__main__":
-    main(dataset_names=["m4"])
+    main(dataset_names=["m4"], model_names=["BaselineNaive"])
