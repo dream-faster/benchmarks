@@ -1,4 +1,4 @@
-name: benchmark-m4,m4-BaselineNaive,BaselineNaive
+name: benchmarks
 
 on:
   push:
@@ -18,10 +18,9 @@ jobs:
         - "3.9"
         dataset:
         - "m4"
-        - "m4"
         model:
         - "BaselineNaive"
-        - "BaselineNaive"
+        - "BaselineNaiveSeasonal"
 
 
     runs-on: ${{ matrix.os }}
@@ -50,5 +49,5 @@ jobs:
           git config --global user.name "Github Action"
           git config --global user.email "bot@github.com"
           git add -A
-          git diff --quiet && git diff --staged --quiet || git commit -m "feature(Result): Added new benchmarking results for m4,m4 - BaselineNaive,BaselineNaive."
+          git diff --quiet && git diff --staged --quiet || git commit -m "feature(Result): Added new benchmarking results for m4 - BaselineNaive,BaselineNaiveSeasonal."
           git push

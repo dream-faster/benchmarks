@@ -1,4 +1,4 @@
-name: benchmark-{dataset_names}-{model_names}
+name: benchmarks
 
 on:
   push:

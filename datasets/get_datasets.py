@@ -2,13 +2,11 @@ from enum import Enum
 from importlib import import_module
 from typing import Callable, List
 
+from utils.iterable_helpers import get_values
+
 
 class all_dataset_names(Enum):
     m4 = "m4"
-
-
-def get_values(obj):
-    return [e.value for e in obj]
 
 
 def get_all_datasets() -> List[Callable]:

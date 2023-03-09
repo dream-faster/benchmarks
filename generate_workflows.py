@@ -1,9 +1,13 @@
+from datasets.get_datasets import all_dataset_names
+from models.get_models import all_model_names
+from utils.iterable_helpers import get_values
+
 with open("benchmarks_template.yaml", "r") as stream:
     benchmark_template = stream.read()
 
 
-models_to_benchmark = ["BaselineNaive", "BaselineNaive"]
-datasets_to_benchmark = ["m4", "m4"]
+datasets_to_benchmark = get_values(all_dataset_names)
+models_to_benchmark = get_values(all_model_names)
 
 benchmark_template = (
     benchmark_template.replace("{model_names}", ",".join(models_to_benchmark))

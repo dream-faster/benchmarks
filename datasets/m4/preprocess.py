@@ -11,3 +11,8 @@ def preprocess() -> pd.DataFrame:
 
     data = data[:50]
     return data
+
+
+# import os
+# os.system("wget https://github.com/Mcompetitions/M4-methods/raw/master/Dataset/Train/Monthly-train.csv")
+# os.system("wget https://github.com/Mcompetitions/M4-methods/raw/master/Dataset/Test/Monthly-test.csv")
