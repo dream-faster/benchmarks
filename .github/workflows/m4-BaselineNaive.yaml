@@ -35,12 +35,12 @@ jobs:
       - name: run-benchmarks
         shell: bash -l {0}
         run: |
-          python command.py --model "{model_names}" --dataset "{dataset_names}"
+          python command.py --model "BaselineNaive" --dataset "m4"
 
       - name: commit-results
         run: | 
           git config --global user.name "Github Action"
           git config --global user.email "bot@github.com"
           git add -A
-          git diff --quiet && git diff --staged --quiet || git commit -m "feature(Result): Added new benchmarking results for {dataset_names} - {model_names}."
+          git diff --quiet && git diff --staged --quiet || git commit -m "feature(Result): Added new benchmarking results for m4 - BaselineNaive."
           git push
