@@ -1,4 +1,4 @@
-name: benchmarks
+name: benchmark-m4,m4-BaselineNaive,BaselineNaive
 
 on:
   push:
@@ -8,12 +8,20 @@ permissions:
 
 jobs:
   run-tests:
+    continue-on-error: true
     strategy:
+      fail-fast: false
       matrix:
         os:
         - ubuntu-latest
         python-version:
         - "3.9"
+        dataset:
+        - "m4"
+        - "m4"
+        model:
+        - "BaselineNaive"
+        - "BaselineNaive"
 
 
     runs-on: ${{ matrix.os }}
@@ -35,12 +43,12 @@ jobs:
       - name: run-benchmarks
         shell: bash -l {0}
         run: |
-          python main.py
+          python command.py --models "${{ matrix.model }}" --datasets "${{ matrix.dataset }}"
 
       - name: commit-results
         run: | 
           git config --global user.name "Github Action"
           git config --global user.email "bot@github.com"
           git add -A
-          git diff --quiet && git diff --staged --quiet || git commit -m "feature(Result): Added new benchmarking results."
+          git diff --quiet && git diff --staged --quiet || git commit -m "feature(Result): Added new benchmarking results for m4,m4 - BaselineNaive,BaselineNaive."
           git push

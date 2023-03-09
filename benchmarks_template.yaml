@@ -8,12 +8,18 @@ permissions:
 
 jobs:
   run-tests:
+    continue-on-error: true
     strategy:
+      fail-fast: false
       matrix:
         os:
         - ubuntu-latest
         python-version:
         - "3.9"
+        dataset:
+        - "{dataset_list}"
+        model:
+        - "{model_list}"
 
 
     runs-on: ${{ matrix.os }}
@@ -35,7 +41,7 @@ jobs:
       - name: run-benchmarks
         shell: bash -l {0}
         run: |
-          python command.py --models "{model_names}" --datasets "{dataset_names}"
+          python command.py --models "${{ matrix.model }}" --datasets "${{ matrix.dataset }}"
 
       - name: commit-results
         run: | 

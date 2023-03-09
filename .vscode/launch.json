@@ -8,13 +8,15 @@
             "name": "Run pipeline",
             "type": "python",
             "request": "launch",
-            "module": "command",
+            // "module": "command.py",
+            "program": "${workspaceFolder}/command.py",
             "args":[
                 "--models",
                 "BaselineNaive",
                 "--datasets",
                 "m4"
-            ]
+            ],
+            "justMyCode":false,
         }
     ]
   }

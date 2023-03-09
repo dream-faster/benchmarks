@@ -20,7 +20,10 @@ def run_dataset_on_model(data: pd.DataFrame, blocks: BlocksOrWrappable) -> float
         blocks_over_time = train(blocks, X, y, splitter)
         preds = backtest(blocks_over_time, X, y, splitter)
         smapes.append(score(y[preds.index], preds.squeeze())["smape"].result)
+        # smapes.append(score(y[preds.index], preds.squeeze()).get_df())
         weights.append(len(y))
+
+    # scores = pd.Series([float(average(smapes, weights=weights))])
     return float(average(smapes, weights=weights))
 
 
