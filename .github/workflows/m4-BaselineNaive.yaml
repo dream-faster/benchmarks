@@ -1,4 +1,4 @@
-name: benchmarks
+name: benchmark-m4-BaselineNaive
 
 on:
   push:
