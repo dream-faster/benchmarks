@@ -151,10 +151,10 @@ export function ProjectPage({metadata, indexes, results}) {
                         <dt className="text-sm font-medium text-gray-500">Dataset Description</dt>
                         <dd className="mt-1 text-sm text-gray-900">{metadata.description}</dd>
                       </div>
-                      <div className="sm:col-span-1">
+                      {/* <div className="sm:col-span-1">
                         <dt className="text-sm font-medium text-gray-500">Email address</dt>
                         <dd className="mt-1 text-sm text-gray-900">ricardocooper@example.com</dd>
-                      </div>
+                      </div> */}
                       <div className="sm:col-span-1">
                         <dt className="text-sm font-medium text-gray-500">Tests last run</dt>
                         <dd className="mt-1 text-sm text-gray-900">{metadata.date}</dd>
