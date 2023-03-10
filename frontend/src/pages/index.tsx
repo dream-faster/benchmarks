@@ -1,40 +1,40 @@
 // import Plot from 'react-plotly.js';
-import { DataFrame, fromCSV, Series } from 'data-forge';
-import dynamic from 'next/dynamic';
+import { DataFrame, fromCSV, Series } from "data-forge";
+import dynamic from "next/dynamic";
 
-import { Card } from '@/components/card';
-import { Meta } from '@/layouts/Meta';
-import { Main } from '@/templates/Main';
-import OneSection from '@/templates/OneSection';
+import { Card } from "@/components/card";
+import { Meta } from "@/layouts/Meta";
+import { Main } from "@/templates/Main";
+import OneSection from "@/templates/OneSection";
 
-const Plot = dynamic(() => import('react-plotly.js'), { ssr: false });
+const Plot = dynamic(() => import("react-plotly.js"), { ssr: false });
 const Table = (props) => {
   const values = [
-    ['Books', 'Clothes', 'Medicals'],
+    ["Books", "Clothes", "Medicals"],
     [
-      '$22',
-      '$190',
+      "$22",
+      "$190",
       '<a href="https://github.com/dream-faster/benchmarking-test">Link to site</a>',
     ],
   ];
-  const headers = [['<b> Item </b>'], ['<b> Expenditure </b>']];
+  const headers = [["<b> Item </b>"], ["<b> Expenditure </b>"]];
   const data = [
     {
-      type: 'table',
+      type: "table",
       header: {
         values: headers,
-        align: 'center',
-        presentation: 'markdown',
+        align: "center",
+        presentation: "markdown",
       },
       cells: {
         values,
-        align: 'center',
+        align: "center",
       },
     },
   ];
 
   return (
-    <Plot data={data} layout={{ width: 500, height: 500, title: 'Table' }} />
+    <Plot data={data} layout={{ width: 500, height: 500, title: "Table" }} />
   );
 };
 
@@ -63,10 +63,10 @@ export default function Index({ date, close }) {
 
 function fetchCsv() {
   return fetch(
-    'https://raw.githubusercontent.com/dream-faster/benchmarking-test/master/results/bitcoin.csv'
+    "https://raw.githubusercontent.com/dream-faster/benchmarking-test/master/results/bitcoin.csv"
   ).then(function (response) {
     const reader = response.body.getReader();
-    const decoder = new TextDecoder('utf-8');
+    const decoder = new TextDecoder("utf-8");
 
     return reader.read().then(function (result) {
       return decoder.decode(result.value);
@@ -92,8 +92,8 @@ export async function getStaticProps() {
   // const allTopicsData = allPostsData;
 
   const df = fromCSV(bitcoinData);
-  const close = df.getSeries('Close').toArray();
-  const date = df.getSeries('Date').toArray();
+  const close = df.getSeries("Close").toArray();
+  const date = df.getSeries("Date").toArray();
 
   return {
     props: {

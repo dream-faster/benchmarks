@@ -12,8 +12,8 @@
   }
   ```
 */
-import { Fragment } from 'react'
-import { Menu, Popover, Transition } from '@headlessui/react'
+import { Fragment } from "react";
+import { Menu, Popover, Transition } from "@headlessui/react";
 import {
   ArrowLongLeftIcon,
   CheckIcon,
@@ -23,65 +23,65 @@ import {
   PaperClipIcon,
   QuestionMarkCircleIcon,
   UserIcon,
-} from '@heroicons/react/20/solid'
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import ResultsTable from './ResultsTable'
+} from "@heroicons/react/20/solid";
+import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import ResultsTable from "./ResultsTable";
 
 const user = {
-  name: 'Whitney Francis',
-  email: 'whitney@example.com',
+  name: "Whitney Francis",
+  email: "whitney@example.com",
   imageUrl:
-    'https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80',
-}
+    "https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80",
+};
 const navigation = [
-  { name: 'Dashboard', href: '#' },
-  { name: 'Jobs', href: '#' },
-  { name: 'Applicants', href: '#' },
-  { name: 'Company', href: '#' },
-]
+  { name: "Dashboard", href: "#" },
+  { name: "Jobs", href: "#" },
+  { name: "Applicants", href: "#" },
+  { name: "Company", href: "#" },
+];
 const breadcrumbs = [
-  { name: 'Jobs', href: '#', current: false },
-  { name: 'Front End Developer', href: '#', current: false },
-  { name: 'Applicants', href: '#', current: true },
-]
+  { name: "Jobs", href: "#", current: false },
+  { name: "Front End Developer", href: "#", current: false },
+  { name: "Applicants", href: "#", current: true },
+];
 const userNavigation = [
-  { name: 'Your Profile', href: '#' },
-  { name: 'Settings', href: '#' },
-  { name: 'Sign out', href: '#' },
-]
+  { name: "Your Profile", href: "#" },
+  { name: "Settings", href: "#" },
+  { name: "Sign out", href: "#" },
+];
 const attachments = [
-  { name: 'resume_front_end_developer.pdf', href: '#' },
-  { name: 'coverletter_front_end_developer.pdf', href: '#' },
-]
+  { name: "resume_front_end_developer.pdf", href: "#" },
+  { name: "coverletter_front_end_developer.pdf", href: "#" },
+];
 const eventTypes = {
-  created: { icon: UserIcon, bgColorClass: 'bg-gray-400' },
-  updated: { icon: HandThumbUpIcon, bgColorClass: 'bg-blue-500' },
-  benchmarked: { icon: CheckIcon, bgColorClass: 'bg-green-500' },
-}
+  created: { icon: UserIcon, bgColorClass: "bg-gray-400" },
+  updated: { icon: HandThumbUpIcon, bgColorClass: "bg-blue-500" },
+  benchmarked: { icon: CheckIcon, bgColorClass: "bg-green-500" },
+};
 const timeline = [
   {
     id: 1,
     type: eventTypes.created,
-    content: 'Created',
-    target: 'NaiveSeasonal',
-    date: 'Sep 20',
-    datetime: '2020-09-20',
+    content: "Created",
+    target: "NaiveSeasonal",
+    date: "Sep 20",
+    datetime: "2020-09-20",
   },
   {
     id: 2,
     type: eventTypes.updated,
-    content: 'Added new model',
-    target: 'NaiveAR',
-    date: 'Sep 22',
-    datetime: '2020-09-22',
-  }
-]
+    content: "Added new model",
+    target: "NaiveAR",
+    date: "Sep 22",
+    datetime: "2020-09-22",
+  },
+];
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
+  return classes.filter(Boolean).join(" ");
 }
 
-export function ProjectPage({metadata, indexes, results}) {
+export function ProjectPage({ metadata, indexes, results }) {
   return (
     <>
       {/*
@@ -108,12 +108,14 @@ export function ProjectPage({metadata, indexes, results}) {
                 </div>
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">{metadata.title}</h1>
+                <h1 className="text-2xl font-bold text-gray-900">
+                  {metadata.title}
+                </h1>
                 <p className="text-sm font-medium text-gray-500">
-                  Benchmarks for {' '}
+                  Benchmarks for{" "}
                   <a href="#" className="text-gray-900">
                     this dataset
-                  </a>{' '}
+                  </a>{" "}
                   ran on <time dateTime="2020-08-25">{metadata.date}</time>
                 </p>
               </div>
@@ -140,7 +142,10 @@ export function ProjectPage({metadata, indexes, results}) {
               <section aria-labelledby="applicant-information-title">
                 <div className="bg-white shadow sm:rounded-lg">
                   <div className="px-4 py-5 sm:px-6">
-                    <h2 id="applicant-information-title" className="text-lg font-medium leading-6 text-gray-900">
+                    <h2
+                      id="applicant-information-title"
+                      className="text-lg font-medium leading-6 text-gray-900"
+                    >
                       Dataset Information
                     </h2>
                     {/* <p className="mt-1 max-w-2xl text-sm text-gray-500">Personal details and application.</p> */}
@@ -148,28 +153,44 @@ export function ProjectPage({metadata, indexes, results}) {
                   <div className="border-t border-gray-200 px-4 py-5 sm:px-6">
                     <dl className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
                       <div className="sm:col-span-1">
-                        <dt className="text-sm font-medium text-gray-500">Dataset Description</dt>
-                        <dd className="mt-1 text-sm text-gray-900">{metadata.description}</dd>
+                        <dt className="text-sm font-medium text-gray-500">
+                          Dataset Description
+                        </dt>
+                        <dd className="mt-1 text-sm text-gray-900">
+                          {metadata.description}
+                        </dd>
                       </div>
                       {/* <div className="sm:col-span-1">
                         <dt className="text-sm font-medium text-gray-500">Email address</dt>
                         <dd className="mt-1 text-sm text-gray-900">ricardocooper@example.com</dd>
                       </div> */}
                       <div className="sm:col-span-1">
-                        <dt className="text-sm font-medium text-gray-500">Tests last run</dt>
-                        <dd className="mt-1 text-sm text-gray-900">{metadata.date}</dd>
+                        <dt className="text-sm font-medium text-gray-500">
+                          Tests last run
+                        </dt>
+                        <dd className="mt-1 text-sm text-gray-900">
+                          {metadata.date}
+                        </dd>
                       </div>
                       <div className="sm:col-span-1">
-                        <dt className="text-sm font-medium text-gray-500">GitHub URL</dt>
-                        <dd className="mt-1 text-sm text-gray-900">{metadata.github_link}</dd>
+                        <dt className="text-sm font-medium text-gray-500">
+                          GitHub URL
+                        </dt>
+                        <dd className="mt-1 text-sm text-gray-900">
+                          {metadata.github_link}
+                        </dd>
                       </div>
                       <div className="sm:col-span-2">
-                        <dt className="text-sm font-medium text-gray-500">About</dt>
+                        <dt className="text-sm font-medium text-gray-500">
+                          About
+                        </dt>
                         <dd className="mt-1 text-sm text-gray-900">
-                        <div
-                                dangerouslySetInnerHTML={{ __html: metadata.contentHtml }}
-                                className="dark:text-slate-100"
-                            />
+                          <div
+                            dangerouslySetInnerHTML={{
+                              __html: metadata.contentHtml,
+                            }}
+                            className="dark:text-slate-100"
+                          />
                         </dd>
                       </div>
                       {/* <div className="sm:col-span-2">
@@ -213,12 +234,15 @@ export function ProjectPage({metadata, indexes, results}) {
                 <div className="bg-white shadow sm:overflow-hidden sm:rounded-lg">
                   <div className="divide-y divide-gray-200">
                     <div className="px-4 py-5 sm:px-6">
-                      <h2 id="notes-title" className="text-lg font-medium text-gray-900">
+                      <h2
+                        id="notes-title"
+                        className="text-lg font-medium text-gray-900"
+                      >
                         Results
                       </h2>
                     </div>
                     <div className="px-4 py-6 sm:px-6">
-                        <ResultsTable indexes={indexes} results={results}/>
+                      <ResultsTable indexes={indexes} results={results} />
                       {/* <ul role="list" className="space-y-8">
                         {comments.map((comment) => (
                           <li key={comment.id}>
@@ -299,9 +323,15 @@ export function ProjectPage({metadata, indexes, results}) {
               </section>
             </div>
 
-            <section aria-labelledby="timeline-title" className="lg:col-span-1 lg:col-start-3">
+            <section
+              aria-labelledby="timeline-title"
+              className="lg:col-span-1 lg:col-start-3"
+            >
               <div className="bg-white px-4 py-5 shadow sm:rounded-lg sm:px-6">
-                <h2 id="timeline-title" className="text-lg font-medium text-gray-900">
+                <h2
+                  id="timeline-title"
+                  className="text-lg font-medium text-gray-900"
+                >
                   Ranking
                 </h2>
 
@@ -322,23 +352,31 @@ export function ProjectPage({metadata, indexes, results}) {
                               <span
                                 className={classNames(
                                   item.type.bgColorClass,
-                                  'h-8 w-8 rounded-full flex items-center justify-center ring-8 ring-white'
+                                  "h-8 w-8 rounded-full flex items-center justify-center ring-8 ring-white"
                                 )}
                               >
-                                <item.type.icon className="h-5 w-5 text-white" aria-hidden="true" />
+                                <item.type.icon
+                                  className="h-5 w-5 text-white"
+                                  aria-hidden="true"
+                                />
                               </span>
                             </div>
                             <div className="flex min-w-0 flex-1 justify-between space-x-4 pt-1.5">
                               <div>
                                 <p className="text-sm text-gray-500">
-                                  {item.content}{' '}
-                                  <a href="#" className="font-medium text-gray-900">
+                                  {item.content}{" "}
+                                  <a
+                                    href="#"
+                                    className="font-medium text-gray-900"
+                                  >
                                     {item.target}
                                   </a>
                                 </p>
                               </div>
                               <div className="whitespace-nowrap text-right text-sm text-gray-500">
-                                <time dateTime={item.datetime}>{item.date}</time>
+                                <time dateTime={item.datetime}>
+                                  {item.date}
+                                </time>
                               </div>
                             </div>
                           </div>
@@ -357,7 +395,10 @@ export function ProjectPage({metadata, indexes, results}) {
                 </div>
               </div>
               <div className="bg-white px-4 py-5 shadow sm:rounded-lg sm:px-6 mt-6">
-                <h2 id="timeline-title" className="text-lg font-medium text-gray-900">
+                <h2
+                  id="timeline-title"
+                  className="text-lg font-medium text-gray-900"
+                >
                   Timeline
                 </h2>
 
@@ -378,23 +419,31 @@ export function ProjectPage({metadata, indexes, results}) {
                               <span
                                 className={classNames(
                                   item.type.bgColorClass,
-                                  'h-8 w-8 rounded-full flex items-center justify-center ring-8 ring-white'
+                                  "h-8 w-8 rounded-full flex items-center justify-center ring-8 ring-white"
                                 )}
                               >
-                                <item.type.icon className="h-5 w-5 text-white" aria-hidden="true" />
+                                <item.type.icon
+                                  className="h-5 w-5 text-white"
+                                  aria-hidden="true"
+                                />
                               </span>
                             </div>
                             <div className="flex min-w-0 flex-1 justify-between space-x-4 pt-1.5">
                               <div>
                                 <p className="text-sm text-gray-500">
-                                  {item.content}{' '}
-                                  <a href="#" className="font-medium text-gray-900">
+                                  {item.content}{" "}
+                                  <a
+                                    href="#"
+                                    className="font-medium text-gray-900"
+                                  >
                                     {item.target}
                                   </a>
                                 </p>
                               </div>
                               <div className="whitespace-nowrap text-right text-sm text-gray-500">
-                                <time dateTime={item.datetime}>{item.date}</time>
+                                <time dateTime={item.datetime}>
+                                  {item.date}
+                                </time>
                               </div>
                             </div>
                           </div>
@@ -417,5 +466,5 @@ export function ProjectPage({metadata, indexes, results}) {
         </main>
       </div>
     </>
-  )
+  );
 }

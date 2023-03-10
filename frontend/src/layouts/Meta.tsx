@@ -1,8 +1,8 @@
-import Head from 'next/head';
-import { useRouter } from 'next/router';
-import { NextSeo } from 'next-seo';
+import Head from "next/head";
+import { useRouter } from "next/router";
+import { NextSeo } from "next-seo";
 
-import { AppConfig } from '@/utils/AppConfig';
+import { AppConfig } from "@/utils/AppConfig";
 
 type IMetaProps = {
   title: string;
@@ -28,7 +28,7 @@ const Meta = (props: IMetaProps) => {
           href={`${router.basePath}/apple-touch-icon.png`}
           key="apple"
         />
-        <link rel="stylesheet" href="https://rsms.me/inter/inter.css"/>
+        <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
         <link
           rel="icon"
           type="image/png"
@@ -64,7 +64,7 @@ const Meta = (props: IMetaProps) => {
               url: `https://www.fasterdream.com/assets/images/social_card_${props.social_card_ending}.png`,
               width: 1200,
               height: 630,
-              alt: 'Nowcasting Eval AI Studio Social OG Image',
+              alt: "Nowcasting Eval AI Studio Social OG Image",
             },
           ],
         }}
