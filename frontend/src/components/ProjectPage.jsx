@@ -25,6 +25,7 @@ import {
   UserIcon,
 } from '@heroicons/react/20/solid'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import ResultsTable from './ResultsTable'
 
 const user = {
   name: 'Whitney Francis',
@@ -53,81 +54,34 @@ const attachments = [
   { name: 'coverletter_front_end_developer.pdf', href: '#' },
 ]
 const eventTypes = {
-  applied: { icon: UserIcon, bgColorClass: 'bg-gray-400' },
-  advanced: { icon: HandThumbUpIcon, bgColorClass: 'bg-blue-500' },
-  completed: { icon: CheckIcon, bgColorClass: 'bg-green-500' },
+  created: { icon: UserIcon, bgColorClass: 'bg-gray-400' },
+  updated: { icon: HandThumbUpIcon, bgColorClass: 'bg-blue-500' },
+  benchmarked: { icon: CheckIcon, bgColorClass: 'bg-green-500' },
 }
 const timeline = [
   {
     id: 1,
-    type: eventTypes.applied,
-    content: 'Applied to',
-    target: 'Front End Developer',
+    type: eventTypes.created,
+    content: 'Created',
+    target: 'NaiveSeasonal',
     date: 'Sep 20',
     datetime: '2020-09-20',
   },
   {
     id: 2,
-    type: eventTypes.advanced,
-    content: 'Advanced to phone screening by',
-    target: 'Bethany Blake',
+    type: eventTypes.updated,
+    content: 'Added new model',
+    target: 'NaiveAR',
     date: 'Sep 22',
     datetime: '2020-09-22',
-  },
-  {
-    id: 3,
-    type: eventTypes.completed,
-    content: 'Completed phone screening with',
-    target: 'Martha Gardner',
-    date: 'Sep 28',
-    datetime: '2020-09-28',
-  },
-  {
-    id: 4,
-    type: eventTypes.advanced,
-    content: 'Advanced to interview by',
-    target: 'Bethany Blake',
-    date: 'Sep 30',
-    datetime: '2020-09-30',
-  },
-  {
-    id: 5,
-    type: eventTypes.completed,
-    content: 'Completed interview with',
-    target: 'Katherine Snyder',
-    date: 'Oct 4',
-    datetime: '2020-10-04',
-  },
-]
-const comments = [
-  {
-    id: 1,
-    name: 'Leslie Alexander',
-    date: '4d ago',
-    imageId: '1494790108377-be9c29b29330',
-    body: 'Ducimus quas delectus ad maxime totam doloribus reiciendis ex. Tempore dolorem maiores. Similique voluptatibus tempore non ut.',
-  },
-  {
-    id: 2,
-    name: 'Michael Foster',
-    date: '4d ago',
-    imageId: '1519244703995-f4e0f30006d5',
-    body: 'Et ut autem. Voluptatem eum dolores sint necessitatibus quos. Quis eum qui dolorem accusantium voluptas voluptatem ipsum. Quo facere iusto quia accusamus veniam id explicabo et aut.',
-  },
-  {
-    id: 3,
-    name: 'Dries Vincent',
-    date: '4d ago',
-    imageId: '1506794778202-cad84cf45f1d',
-    body: 'Expedita consequatur sit ea voluptas quo ipsam recusandae. Ab sint et voluptatem repudiandae voluptatem et eveniet. Nihil quas consequatur autem. Perferendis rerum et.',
-  },
+  }
 ]
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export function ProjectPage({metadata, results}) {
+export function ProjectPage({metadata, indexes, results}) {
   return (
     <>
       {/*
@@ -169,13 +123,13 @@ export function ProjectPage({metadata, results}) {
                 type="button"
                 className="inline-flex items-center justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
               >
-                Disqualify
+                See original data
               </button>
               <button
                 type="button"
                 className="inline-flex items-center justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
               >
-                Advance to offer
+                Upload your own dataset
               </button>
             </div>
           </div>
@@ -218,7 +172,7 @@ export function ProjectPage({metadata, results}) {
                             />
                         </dd>
                       </div>
-                      <div className="sm:col-span-2">
+                      {/* <div className="sm:col-span-2">
                         <dt className="text-sm font-medium text-gray-500">Attachments</dt>
                         <dd className="mt-1 text-sm text-gray-900">
                           <ul role="list" className="divide-y divide-gray-200 rounded-md border border-gray-200">
@@ -240,7 +194,7 @@ export function ProjectPage({metadata, results}) {
                             ))}
                           </ul>
                         </dd>
-                      </div>
+                      </div> */}
                     </dl>
                   </div>
                   <div>
@@ -248,7 +202,7 @@ export function ProjectPage({metadata, results}) {
                       href="#"
                       className="block bg-gray-50 px-4 py-4 text-center text-sm font-medium text-gray-500 hover:text-gray-700 sm:rounded-b-lg"
                     >
-                      Read full application
+                      Read full description
                     </a>
                   </div>
                 </div>
@@ -260,11 +214,12 @@ export function ProjectPage({metadata, results}) {
                   <div className="divide-y divide-gray-200">
                     <div className="px-4 py-5 sm:px-6">
                       <h2 id="notes-title" className="text-lg font-medium text-gray-900">
-                        Notes
+                        Results
                       </h2>
                     </div>
                     <div className="px-4 py-6 sm:px-6">
-                      <ul role="list" className="space-y-8">
+                        <ResultsTable indexes={indexes} results={results}/>
+                      {/* <ul role="list" className="space-y-8">
                         {comments.map((comment) => (
                           <li key={comment.id}>
                             <div className="flex space-x-3">
@@ -295,10 +250,10 @@ export function ProjectPage({metadata, results}) {
                             </div>
                           </li>
                         ))}
-                      </ul>
+                      </ul> */}
                     </div>
                   </div>
-                  <div className="bg-gray-50 px-4 py-6 sm:px-6">
+                  {/* <div className="bg-gray-50 px-4 py-6 sm:px-6">
                     <div className="flex space-x-3">
                       <div className="flex-shrink-0">
                         <img className="h-10 w-10 rounded-full" src={user.imageUrl} alt="" />
@@ -339,13 +294,69 @@ export function ProjectPage({metadata, results}) {
                         </form>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </section>
             </div>
 
             <section aria-labelledby="timeline-title" className="lg:col-span-1 lg:col-start-3">
               <div className="bg-white px-4 py-5 shadow sm:rounded-lg sm:px-6">
+                <h2 id="timeline-title" className="text-lg font-medium text-gray-900">
+                  Ranking
+                </h2>
+
+                {/* Activity Feed */}
+                <div className="mt-6 flow-root">
+                  <ul role="list" className="-mb-8">
+                    {timeline.map((item, itemIdx) => (
+                      <li key={item.id}>
+                        <div className="relative pb-8">
+                          {itemIdx !== timeline.length - 1 ? (
+                            <span
+                              className="absolute top-4 left-4 -ml-px h-full w-0.5 bg-gray-200"
+                              aria-hidden="true"
+                            />
+                          ) : null}
+                          <div className="relative flex space-x-3">
+                            <div>
+                              <span
+                                className={classNames(
+                                  item.type.bgColorClass,
+                                  'h-8 w-8 rounded-full flex items-center justify-center ring-8 ring-white'
+                                )}
+                              >
+                                <item.type.icon className="h-5 w-5 text-white" aria-hidden="true" />
+                              </span>
+                            </div>
+                            <div className="flex min-w-0 flex-1 justify-between space-x-4 pt-1.5">
+                              <div>
+                                <p className="text-sm text-gray-500">
+                                  {item.content}{' '}
+                                  <a href="#" className="font-medium text-gray-900">
+                                    {item.target}
+                                  </a>
+                                </p>
+                              </div>
+                              <div className="whitespace-nowrap text-right text-sm text-gray-500">
+                                <time dateTime={item.datetime}>{item.date}</time>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="justify-stretch mt-6 flex flex-col">
+                  <button
+                    type="button"
+                    className="inline-flex items-center justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+                  >
+                    Advance to offer
+                  </button>
+                </div>
+              </div>
+              <div className="bg-white px-4 py-5 shadow sm:rounded-lg sm:px-6 mt-6">
                 <h2 id="timeline-title" className="text-lg font-medium text-gray-900">
                   Timeline
                 </h2>

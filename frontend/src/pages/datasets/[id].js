@@ -6,7 +6,7 @@ import { getSortedTopicsData } from '@/lib/models';
 import { ProjectPage } from '@/components/ProjectPage';
 import { DataFrame, fromCSV, Series } from 'data-forge';
 
-export default function Post({ postData, results }) {
+export default function Post({ postData, indexes, results }) {
   return (
     <Main
       wide={true}
@@ -18,22 +18,7 @@ export default function Post({ postData, results }) {
         />
       }
     >
-    <ProjectPage metadata={postData} results={results}/>
-    {/* <article className="prose prose-zinc w-full dark:prose-invert ">
-        <h3> {postData.description} </h3>
-        <div
-          dangerouslySetInnerHTML={{ __html: postData.contentHtml }}
-          className="dark:text-slate-100"
-        />
-      </article>
-      <div>
-        {results}
-      </div> */}
-      {/* <ProjectPage
-        data={postData}
-        relatedData={filteredTopics}
-        relatedType="models"
-      /> */}
+    <ProjectPage metadata={postData} indexes={indexes} results={results}/>
     </Main>
   );
 }
@@ -46,24 +31,24 @@ export async function getStaticPaths() {
   };
 }
 
-// export async function getStaticProps({ params }) {
-//   const postData = await getPostData(params.id);
-//   return {
-//     props: {
-//       postData,
-//     },
-//   };
-// }
 
 export async function getStaticProps({ params }) {
   const postData = await getPostData(params.id);
   // const topicData = await getSortedTopicsData();
-  const results = await getResults(params.id)
+  const benchmark_results = await getResults(params.id)
   
-  const df = fromCSV(results[0]);
-  df.getColumnNames()[0]
-  const result = df.getSeries(df.getColumnNames()[0]).toArray();
-  const date = df.getSeries('Date').toArray();
+  const results = benchmark_results.map(result=>{
+    const df = fromCSV(result);
+    const results = df.getSeries(df.getColumnNames()[1]).toArray();
+
+    return results
+  })
+  const df = fromCSV(benchmark_results[0]);
+  const indexes = df.getSeries(df.getColumnNames()[0]).toArray();
+
+
+  // console.log(indexes)
+  console.log(results)
   // const filteredTopics = topicData.filter((topic) =>
   //   postData.tag.split(',').includes(topic.tag.split(',')[0])
   // );
@@ -71,6 +56,7 @@ export async function getStaticProps({ params }) {
   return {
     props: {
       postData,
+      indexes,
       results,
     },
   };
