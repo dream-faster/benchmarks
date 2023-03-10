@@ -1,12 +1,12 @@
 model_dataset_name,BaselineNaiveSeasonal - m4
 model,BaselineNaiveSeasonal
 dataset,m4
-Mean Absolute Error,435.7056052121211
-Mean Absolute Percentage Error,0.13864579051324244
-Symmetric Mean Absolute Percentage Error,0.0671985322880542
-Mean Squared Error,526707.1228808534
-Root Mean Squared Error,533.6982176956836
-Root Mean Squared Log Error,0.16473722443814687
-R-squared,-0.6782943123932166
-Mean of the Residuals,14.700189999999994
-Standard Deviation of the Residuals,524.4641339099684
+Mean Absolute Error,346.0570418181818
+Mean Absolute Percentage Error,0.14180455119533486
+Symmetric Mean Absolute Percentage Error,0.06808886383180321
+Mean Squared Error,458848.25364700303
+Root Mean Squared Error,420.15750232221
+Root Mean Squared Log Error,0.16536156550135048
+R-squared,-0.4485620360769491
+Mean of the Residuals,26.393472121212117
+Standard Deviation of the Residuals,399.65218777947337
