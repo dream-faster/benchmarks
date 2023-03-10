@@ -5,13 +5,17 @@ import wget
 
 
 def download_data() -> None:
-    if not os.path.exists("frontend/data_snippets"):
-        os.makedirs("datasets/m4/original")
+    download_location = "datasets/m4/original"
 
-    wget.download(
-        "https://github.com/Mcompetitions/M4-methods/raw/master/Dataset/Train/Monthly-train.csv",
-        out="datasets/m4/original",
-    )
+    if not os.path.exists(download_location):
+        os.makedirs(download_location)
+
+    file_name = "Monthly-train.csv"
+    if not os.path.exists(f"{download_location}/{file_name}"):
+        wget.download(
+            f"https://github.com/Mcompetitions/M4-methods/raw/master/Dataset/Train/{file_name}",
+            out=download_location,
+        )
 
 
 def preprocess() -> pd.DataFrame:
