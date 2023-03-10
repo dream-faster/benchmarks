@@ -10,8 +10,8 @@ from run import run_datasets_on_models
 
 
 def save_results(results: pd.DataFrame):
-    if not os.path.exists("frontend/data_snippets"):
-        os.makedirs("frontend/data_snippets")
+    if not os.path.exists("frontend/results"):
+        os.makedirs("frontend/results")
     for col in results.columns:
         results[col].to_csv(f"frontend/results/{col}.csv")
 
