@@ -22,5 +22,5 @@ def preprocess() -> pd.DataFrame:
     data = data.set_index("m4").transpose().reset_index(drop=True)
     data = data.dropna()
 
-    data = data[data.columns[:100]]
+    data = data[data.columns[:50]]
     return data
