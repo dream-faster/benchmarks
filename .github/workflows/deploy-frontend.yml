@@ -27,6 +27,8 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: '16.x'
+      - name: Enter 'frontend' directory
+        run: cd frontend
 
       - name: Installing my packages
         run: npm ci
