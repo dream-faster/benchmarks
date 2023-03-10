@@ -21,9 +21,11 @@ def save_data_snippets(datasets: List[pd.DataFrame]):
         os.makedirs("frontend/data_snippets")
 
     for dataset in datasets:
-        dataset[dataset.columns[:5]][:50].to_csv(
-            f"frontend/data_snippets/{dataset.columns.name}.csv"
-        )
+        file_path = f"frontend/data_snippets/{dataset.columns.name}.csv"
+        if os.path.exists(file_path):
+            continue
+        else:
+            dataset[dataset.columns[:5]][:50].to_csv(file_path)
 
 
 def run_pipeline(
