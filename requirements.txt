@@ -3,3 +3,4 @@ pandas
 numpy
 https://github.com/dream-faster/krisi/archive/main.zip
 pytest
+wget

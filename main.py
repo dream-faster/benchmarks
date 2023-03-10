@@ -1,3 +1,4 @@
+import os
 from typing import Callable, List, Optional
 
 import pandas as pd
@@ -9,8 +10,22 @@ from run import run_datasets_on_models
 
 
 def save_results(results: pd.DataFrame):
+    if not os.path.exists("frontend/results"):
+        os.makedirs("frontend/results")
     for col in results.columns:
-        results[col].to_csv(f"results/{col}.csv")
+        results[col].to_csv(f"frontend/results/{col}.csv")
+
+
+def save_data_snippets(datasets: List[pd.DataFrame]):
+    if not os.path.exists("frontend/data_snippets"):
+        os.makedirs("frontend/data_snippets")
+
+    for dataset in datasets:
+        file_path = f"frontend/data_snippets/{dataset.columns.name}.csv"
+        if os.path.exists(file_path):
+            continue
+        else:
+            dataset[dataset.columns[:5]][:50].to_csv(file_path)
 
 
 def run_pipeline(
@@ -25,14 +40,16 @@ def main(
     dataset_names: Optional[List[str]] = None,
     model_names: Optional[List[str]] = None,
 ):
-    model_objects = get_all_models() if model_names is None else get_models(model_names)
+    models = get_all_models() if model_names is None else get_models(model_names)
 
     preprocess_functions = (
         get_all_datasets() if dataset_names is None else get_datasets(dataset_names)
     )
+    datasets = [preprocess() for preprocess in preprocess_functions]
+    results_df = run_datasets_on_models(datasets, models)
 
-    results_df = run_pipeline(preprocess_functions, model_objects)
     save_results(results_df)
+    save_data_snippets(datasets)
 
 
 if __name__ == "__main__":
