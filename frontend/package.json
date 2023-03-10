@@ -18,7 +18,6 @@
     "@types/plotly.js-basic-dist": "^1.54.1",
     "daisyui": "^2.51.3",
     "data-forge": "^1.9.6",
-    "fs": "^0.0.1-security",
     "gray-matter": "^4.0.3",
     "next": "^12.3.0",
     "next-seo": "^5.5.0",

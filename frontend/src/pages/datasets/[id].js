@@ -1,4 +1,4 @@
-import { getAllPostIds, getPostData } from '@/lib/datasets';
+import { getAllPostIds, getPostData, getResults } from '@/lib/datasets';
 
 import { Meta } from '@/layouts/Meta.tsx';
 import { Main } from '@/templates/Main.tsx';
@@ -16,6 +16,13 @@ export default function Post({ postData, filteredTopics }) {
         />
       }
     >
+    <article className="prose prose-zinc w-full dark:prose-invert ">
+        <h3> {postData.description} </h3>
+        <div
+          dangerouslySetInnerHTML={{ __html: postData.contentHtml }}
+          className="dark:text-slate-100"
+        />
+      </article>
       {/* <ProjectPage
         data={postData}
         relatedData={filteredTopics}
@@ -44,16 +51,17 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const postData = await getPostData(params.id);
-  const topicData = await getSortedTopicsData();
+  // const topicData = await getSortedTopicsData();
+  const results = await getResults(params.id)
 
-  const filteredTopics = topicData.filter((topic) =>
-    postData.tag.split(',').includes(topic.tag.split(',')[0])
-  );
+  // const filteredTopics = topicData.filter((topic) =>
+  //   postData.tag.split(',').includes(topic.tag.split(',')[0])
+  // );
 
   return {
     props: {
       postData,
-      filteredTopics,
+      results,
     },
   };
 }
