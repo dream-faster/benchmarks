@@ -1,13 +1,9 @@
-
-import Link from 'next/link';
 import { Router } from 'next/router';
 import Script from 'next/script';
 import type { ReactNode } from 'react';
 import { useState } from 'react';
-
-import OneSection from './OneSection';
-import Example from '@/layouts/dashboard'
-
+ 
+import Example from '@/layouts/dashboard';
 
 
 type IMainProps = {
