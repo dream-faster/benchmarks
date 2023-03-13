@@ -4,18 +4,23 @@ import matter from "gray-matter";
 import path from "path";
 import { remark } from "remark";
 import html from "remark-html";
-import { onlyUnique } from "./utils";
 
 const postsDirectory = path.join(process.cwd(), "src/datasets");
 const resultsDirectory = path.join(process.cwd(), "results");
 
 export function getSortedPostsData() {
   // Get file names under /posts
-  const fileNames = fs.readdirSync(postsDirectory);
-  const allPostsData = fileNames.map((fileName) => {
+  // const fileNames = fs.readdirSync(postsDirectory);
+  const dirNames = fs.readdirSync(postsDirectory);
+
+   
+
+  const allPostsData = dirNames.map(directory=>directory.map((fileName) => {
+    if (fileName.split('.')[-1] === '.md'){ 
     // Remove ".md" from file name to get id
     const id = fileName.replace(/\.md$/, "");
 
+    console.log(id)
     // Read markdown file as string
     const fullPath = path.join(postsDirectory, fileName);
     const fileContents = fs.readFileSync(fullPath, "utf8");
@@ -26,16 +31,16 @@ export function getSortedPostsData() {
     // Combine the data with the id
     return {
       id,
-      // title,
-      // date,
-      // github_link,
-      // description,
       ...matterResult.data,
     };
-  });
+  }
+    else return null
+  }));
+
+  const filteredPostData = allPostsData.filter(Boolean)
 
   // Sort posts by date
-  return allPostsData.sort((a, b) => {
+  return filteredPostData.sort((a, b) => {
     if (a.date < b.date) {
       return 1;
     }
@@ -55,7 +60,7 @@ export function getAllPostIds() {
 }
 
 export async function getPostData(id) {
-  const fullPath = path.join(postsDirectory, `${id}.md`);
+  const fullPath = path.join(postsDirectory, `${id}/description.md`);
   const fileContents = fs.readFileSync(fullPath, "utf8");
 
   // Use gray-matter to parse the post metadata section
