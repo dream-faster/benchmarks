@@ -13,8 +13,8 @@ module.exports = withBundleAnalyzer({
   // The starter code load resources from `public` folder with `router.basePath` in React components.
   // So, the source code is "basePath-ready".
   // You can remove `basePath` if you don't need it.
-  assetPrefix: '/benchmarks/',
-  basePath: '/benchmarks',
+  // assetPrefix: '/benchmarks/',
+  // basePath: '/benchmarks',
   reactStrictMode: false,
   
   typescript:{

@@ -3,7 +3,7 @@ import Script from 'next/script';
 import type { ReactNode } from 'react';
 import { useState } from 'react';
  
-import Example from '@/layouts/dashboard';
+import { Nav } from '@/layouts/nav';
 
 
 type IMainProps = {
@@ -35,9 +35,10 @@ export const Main = (props: IMainProps) => {
     <div className="h-full min-h-screen w-screen overflow-hidden bg-zinc-100 text-gray-700 antialiased dark:bg-slate-800">
       {script}
       {props.meta}
-      <Example> 
-      {props.children}
-      </Example>
+      <Nav/>
+      <div className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
+        {props.children}
+      </div>
     </div>
   );
 };
