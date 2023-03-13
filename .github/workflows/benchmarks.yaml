@@ -7,6 +7,8 @@ on:
     paths:
       - datasets/**
       - models/**
+      - '!frontend/src/datasets/**'
+      - '!frontend/src/models/**'
 
 permissions:
   contents: write
