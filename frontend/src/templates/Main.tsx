@@ -1,14 +1,9 @@
+import { Router } from "next/router";
+import Script from "next/script";
+import type { ReactNode } from "react";
+import { useState } from "react";
 
-import Link from 'next/link';
-import { Router } from 'next/router';
-import Script from 'next/script';
-import type { ReactNode } from 'react';
-import { useState } from 'react';
-
-import OneSection from './OneSection';
-import Example from '@/layouts/dashboard'
-
-
+import { Nav } from "@/layouts/Nav";
 
 type IMainProps = {
   meta: ReactNode;
@@ -33,15 +28,16 @@ export const Main = (props: IMainProps) => {
         data-utcoffset="1"
       />
     );
-  Router.events.on('routeChangeComplete', handleRouteChange);
+  Router.events.on("routeChangeComplete", handleRouteChange);
 
   return (
-    <div className="h-full min-h-screen w-screen overflow-hidden bg-zinc-100 text-gray-700 antialiased dark:bg-slate-800">
+    <div className="min-h-full">
       {script}
       {props.meta}
-      <Example> 
-      {props.children}
-      </Example>
-    </div>
+      <Nav />
+      <div className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
+        {props.children}
+      </div>
+    </div> 
   );
 };

@@ -1,7 +1,7 @@
-import { Meta } from '@/layouts/Meta';
-import { getSortedTopicsData } from '@/lib/models';
-import { Main } from '@/templates/Main';
-import OneSection from '@/templates/OneSection';
+import { Meta } from "@/layouts/Meta";
+import { getSortedTopicsData } from "@/lib/models";
+import { Main } from "@/templates/Main";
+import OneSection from "@/templates/OneSection";
 
 export default function Index({
   allPostsData,
