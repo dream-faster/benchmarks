@@ -1,12 +1,15 @@
-import { Meta } from "@/layouts/Meta";
-import { getSortedTopicsData } from "@/lib/models";
-import { Main } from "@/templates/Main";
-import OneSection from "@/templates/OneSection";
+import Container from '@/components/Container';
+import List from '@/components/List';
+import { Meta } from '@/layouts/Meta';
+
+import { getSortedDatasetsOrModels } from '@/lib/finder';
+import { Main } from '@/templates/Main';
+
 
 export default function Index({
-  allPostsData,
+  allDatasets,
 }: {
-  allPostsData: [string, string, string, string];
+  allDatasets: [];
 }): JSX.Element {
   // const router = useRouter();
 
@@ -17,20 +20,23 @@ export default function Index({
         <Meta
           title="Topics >> Nowcasting Eval AI Studio"
           description="Independent R&D studio specialized in Artificial Intelligence and Nowcasting."
-          social_card_ending="datasets"
+          social_card_ending="models"
         />
       }
     >
-      <OneSection>Models</OneSection>
+      <Container title="Models">
+        <List elements={allDatasets} baseUrl='models'/>
+      </Container>
+
     </Main>
   );
 }
 
 export async function getStaticProps() {
-  const allPostsData = getSortedTopicsData();
+  const allDatasets = await getSortedDatasetsOrModels(0);
   return {
     props: {
-      allPostsData,
+      allDatasets
     },
   };
 }

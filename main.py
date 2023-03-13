@@ -9,6 +9,35 @@ from models.get_models import get_all_models, get_models
 from run import run_datasets_on_models
 
 
+def copy_file(base_path_from: str, base_path_to: str, folder_name: str):
+    file_path_to_copy = f"{base_path_from}/{folder_name}/description.md"
+    if not os.path.exists(file_path_to_copy):
+        return
+
+    with open(file_path_to_copy, "r") as stream:
+        file_to_copy = stream.read()
+
+    path_to_save = f"{base_path_to}/{folder_name}"
+    if not os.path.exists(path_to_save):
+        os.makedirs(path_to_save)
+
+    with open(f"{path_to_save}/description.md", "w") as f:
+        f.write(file_to_copy)
+
+
+def save_metadata(
+    dataset_names: Optional[List[str]] = None, model_names: Optional[List[str]] = None
+) -> None:
+    for name, object_list in [("datasets", dataset_names), ("models", model_names)]:
+        if object_list is not None:
+            for object_names in object_list:
+                copy_file(
+                    base_path_from=name,
+                    base_path_to=f"frontend/src/{name}",
+                    folder_name=object_names,
+                )
+
+
 def save_results(results: pd.DataFrame):
     if not os.path.exists("frontend/results"):
         os.makedirs("frontend/results")
@@ -17,11 +46,11 @@ def save_results(results: pd.DataFrame):
 
 
 def save_data_snippets(datasets: List[pd.DataFrame]):
-    if not os.path.exists("frontend/data_snippets"):
-        os.makedirs("frontend/data_snippets")
-
     for dataset in datasets:
-        file_path = f"frontend/data_snippets/{dataset.columns.name}.csv"
+        path = f"frontend/src/datasets/{dataset.columns.name}"
+        if not os.path.exists(path):
+            os.makedirs(path)
+        file_path = f"{path}/snippet.csv"
         if os.path.exists(file_path):
             continue
         else:
@@ -50,6 +79,7 @@ def main(
 
     save_results(results_df)
     save_data_snippets(datasets)
+    save_metadata(dataset_names, model_names)
 
 
 if __name__ == "__main__":

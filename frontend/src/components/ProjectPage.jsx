@@ -1,6 +1,6 @@
 import {ResultsTable} from "./ResultsTable";
 
-export function ProjectPage({ metadata, indexes, results }) {
+export function ProjectPage({ metadata, indexes, results, modDate }) {
   return (
     <>
       {/*
@@ -31,11 +31,11 @@ export function ProjectPage({ metadata, indexes, results }) {
                   {metadata.title}
                 </h1>
                 <p className="text-sm font-medium text-gray-500">
-                  Benchmarks for{" "}
+                  Last Benchmark for{" "}
                   <a href="#" className="text-gray-900">
                     this dataset
                   </a>{" "}
-                  ran on <time dateTime="2020-08-25">{metadata.date}</time>
+                  ran on <time dateTime="2020-08-25">{modDate}</time>
                 </p>
               </div>
             </div>

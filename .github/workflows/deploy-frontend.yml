@@ -1,7 +1,9 @@
 name: Deploy Next.js site to Pages
 
 on:
-  pull_request:
+  push:
+    branches:
+      - main
     paths:
       - frontend/**
 

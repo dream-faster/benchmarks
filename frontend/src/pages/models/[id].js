@@ -1,12 +1,12 @@
-import { getAllPostIds, getPostData, getResults } from '@/lib/models';
+import { getAllPostIds, getPostData, getResults } from "@/lib/finder";
+import { processResults } from "@/lib/utils";
 
-import { Meta } from '@/layouts/Meta.tsx';
-import { Main } from '@/templates/Main.tsx';
-import { getSortedTopicsData } from '@/lib/models';
-import { ProjectPage } from '@/components/ProjectPage';
-import { DataFrame, fromCSV, Series } from 'data-forge';
+import { Meta } from "@/layouts/Meta.tsx";
+import { Main } from "@/templates/Main.tsx";
+import { ProjectPage } from "@/components/ProjectPage";
+import path from "path";
 
-export default function Post({ postData, indexes, results }) {
+export default function Post({ postData, indexes, results, newestModDate }) {
   return (
     <Main
       wide={true}
@@ -18,40 +18,36 @@ export default function Post({ postData, indexes, results }) {
         />
       }
     >
-    <ProjectPage metadata={postData} indexes={indexes} results={results}/>
+      <ProjectPage
+        metadata={postData}
+        indexes={indexes}
+        results={results}
+        modDate={newestModDate}
+      />
     </Main>
   );
 }
 
+const modelDirectory = path.join(process.cwd(), "src/models");
+
 export async function getStaticPaths() {
-  const paths = getAllPostIds();
+  const paths = getAllPostIds(modelDirectory);
   return {
     paths,
     fallback: false,
   };
 }
 
-
 export async function getStaticProps({ params }) {
-  const postData = await getPostData(params.id);
-  // const topicData = await getSortedTopicsData();
-  const benchmark_results = await getResults(params.id)
-  
-  const results = benchmark_results.map(result=>{
-    const df = fromCSV(result);
-    const results = df.getSeries(df.getColumnNames()[1]).toArray();
-
-    return results
-  })
-  const df = fromCSV(benchmark_results[0]);
-  const indexes = df.getSeries(df.getColumnNames()[0]).toArray();
-
-
+  const postData = await getPostData(modelDirectory, params.id);
+  const benchmark_results = await getResults(0, params.id);
+  const { indexes, results, newestModDate } = processResults(benchmark_results);
   return {
     props: {
       postData,
       indexes,
       results,
+      newestModDate,
     },
   };
 }
