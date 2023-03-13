@@ -1,28 +1,21 @@
-/*
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/forms'),
-    ],
-  }
-  ```
-*/
 import Link from "next/link";
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
+import { useRouter } from "next/router";
+
+// function classNames(...classes) {
+//   return classes.filter(Boolean).join(" ");
+// }
 
 export function Nav() {
+  const router = useRouter();
+
+  const checkCurrent=(id)=>router.pathname === id      ? "inline-flex items-center border-b-2 border-indigo-500 px-1 pt-1 text-sm font-medium text-gray-900"
+    : "inline-flex  items-center  px-1 pt-1 text-sm font-medium border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700"
+
   return (
     <Disclosure as="nav" className="bg-white shadow">
       {({ open }) => (
@@ -54,22 +47,28 @@ export function Nav() {
                 <div className="hidden lg:ml-6 lg:flex lg:space-x-8 z-50">
                   {/* Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" */}
                   <Link href="/ranking">
-                    <a className="inline-flex items-center border-b-2 border-indigo-500 px-1 pt-1 text-sm font-medium text-gray-900">
+                    <a
+                      className={checkCurrent("/ranking")}
+                    >
                       Ranking
                     </a>
                   </Link>
                   <Link href="/datasets">
-                    <a className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
+                    <a
+                      className={checkCurrent("/datasets")}
+                    >
                       Datasets
                     </a>
                   </Link>
                   <Link href="/models">
-                    <a className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
+                    <a
+                      className={checkCurrent("/models")}
+                    >
                       Models
                     </a>
                   </Link>
                   <Link href="/about">
-                    <a className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
+                    <a className={checkCurrent("/about")}>
                       About
                     </a>
                   </Link>

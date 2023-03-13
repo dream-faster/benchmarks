@@ -9,7 +9,7 @@ import {
   XMarkIcon,
 } from '@heroicons/react/24/outline'
 import { CheckIcon } from '@heroicons/react/20/solid'
-
+import {ResultsTable} from '@/components/ResultsTable';
 const features = [
   {
     name: 'Push to deploy',
@@ -117,7 +117,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Landing({results}) {
+export default function Landing({results, indexes}) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
@@ -172,7 +172,7 @@ export default function Landing({results}) {
                 </div>
               </div>
               <ResultsTable indexes={indexes} results={results}/>
-              <div className="mt-16 flow-root sm:mt-24">
+              {/* <div className="mt-16 flow-root sm:mt-24">
                 <div className="-m-2 rounded-xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:-m-4 lg:rounded-2xl lg:p-4">
                   <img
                     src="https://tailwindui.com/img/component-images/project-app-screenshot.png"
@@ -182,7 +182,7 @@ export default function Landing({results}) {
                     className="rounded-md shadow-2xl ring-1 ring-gray-900/10"
                   />
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
           <div className="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]">
@@ -213,7 +213,7 @@ export default function Landing({results}) {
         </div>
 
         {/* Logo cloud */}
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        {/* <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-12 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 sm:gap-y-14 lg:mx-0 lg:max-w-none lg:grid-cols-5">
             <img
               className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
@@ -262,7 +262,7 @@ export default function Landing({results}) {
               </a>
             </p>
           </div>
-        </div>
+        </div> */}
 
         {/* Feature section */}
         <div className="mx-auto mt-32 max-w-7xl px-6 sm:mt-56 lg:px-8">

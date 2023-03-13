@@ -3,8 +3,10 @@ import { Main } from '@/templates/Main';
 import { DataFrame, fromCSV, Series } from 'data-forge';
 import Landing from '@/components/Landing';
 import { getAllPostIds, getPostData, getResults } from '@/lib/datasets';
+import { getAllResults } from '@/lib/finder';
 
-export default function Index({results, indexes}) {
+
+export default function Index({ indexes, results}) {
   return (
     <Main
       wide={true}
@@ -23,7 +25,7 @@ export default function Index({results, indexes}) {
 
 
 export async function getStaticProps({ params }) {
-  const benchmark_results = await getAllResults(params.id)
+  const benchmark_results = await getAllResults()
   
   const results = benchmark_results.map(result=>{
     const df = fromCSV(result);
@@ -36,7 +38,6 @@ export async function getStaticProps({ params }) {
 
   return {
     props: {
-      postData,
       indexes,
       results,
     },

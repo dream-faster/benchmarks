@@ -1,4 +1,4 @@
-export  function ResultsTable({ indexes, results }) {
+export function ResultsTable({ indexes, results }) {
   return (
     <div className="px-4 sm:px-6 lg:px-8">
       <div className="sm:flex sm:items-center">
