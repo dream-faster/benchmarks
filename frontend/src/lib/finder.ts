@@ -1,6 +1,9 @@
 const fs = require("fs");
 import path from "path";
 import { onlyUnique } from "@/lib/utils";
+import matter from "gray-matter";
+import { remark } from "remark";
+import html from "remark-html";
 
 export default async function readDir(
   id: string | null,
@@ -62,4 +65,81 @@ export async function getAllResults() {
   all_results = all_results.filter(onlyUnique);
 
   return all_results;
+}
+
+
+
+export function getSortedPostsData(directory:string) {
+  const dirNames = fs.readdirSync(directory);
+
+  const allPostsData = dirNames.map(directory=>directory.map((fileName) => {
+    if (fileName.split('.')[-1] === '.md'){ 
+    // Remove ".md" from file name to get id
+    const id = fileName.replace(/\.md$/, "");
+
+    console.log(id)
+    // Read markdown file as string
+    const fullPath = path.join(directory, fileName);
+    const fileContents = fs.readFileSync(fullPath, "utf8");
+
+    // Use gray-matter to parse the post metadata section
+    const matterResult = matter(fileContents);
+
+    // Combine the data with the id
+    return {
+      id,
+      ...matterResult.data,
+    };
+  }
+    else return null
+  }));
+
+  const filteredPostData = allPostsData.filter(Boolean)
+
+  // Sort posts by date
+  return filteredPostData.sort((a, b) => {
+    if (a.date < b.date) {
+      return 1;
+    }
+    return -1;
+  });
+}
+
+
+export async function getPostData(directory:string, id:string) {
+  const fullPath = path.join(directory, `${id}/description.md`);
+  const fileContents = fs.readFileSync(fullPath, "utf8");
+
+  // Use gray-matter to parse the post metadata section
+  const matterResult = matter(fileContents);
+
+  // Use remark to convert markdown into HTML string
+  const processedContent = await remark()
+    .use(html)
+    .process(matterResult.content);
+  const contentHtml = processedContent.toString();
+
+  // Combine the data with the id and contentHtml
+  return {
+    id,
+    contentHtml,
+    ...matterResult.data,
+  };
+}
+
+export function getAllPostIds(directory:string) {
+  const fileNames = fs.readdirSync(directory);
+  return fileNames.map((fileName) => {
+    return {
+      params: {
+        id: fileName.replace(/\.md$/, ""),
+      },
+    };
+  });
+}
+
+export async function getResults(type:number, id:string) {
+  const resultsDirectory = path.join(process.cwd(), "results");
+  const results = await readDir(id, resultsDirectory, type);
+  return results;
 }
