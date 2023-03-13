@@ -1,46 +1,12 @@
-// import Plot from 'react-plotly.js';
-import { DataFrame, fromCSV, Series } from "data-forge";
-import dynamic from "next/dynamic";
+import { Meta } from '@/layouts/Meta';
+import { Main } from '@/templates/Main';
+import { DataFrame, fromCSV, Series } from 'data-forge';
+import Landing from '@/components/Landing';
+import { getAllPostIds, getPostData, getResults } from '@/lib/datasets';
+import { getAllResults } from '@/lib/finder';
 
-import { Card } from "@/components/card";
-import { Meta } from "@/layouts/Meta";
-import { Main } from "@/templates/Main";
-import OneSection from "@/templates/OneSection";
 
-const Plot = dynamic(() => import("react-plotly.js"), { ssr: false });
-const Table = (props) => {
-  const values = [
-    ["Books", "Clothes", "Medicals"],
-    [
-      "$22",
-      "$190",
-      '<a href="https://github.com/dream-faster/benchmarking-test">Link to site</a>',
-    ],
-  ];
-  const headers = [["<b> Item </b>"], ["<b> Expenditure </b>"]];
-  const data = [
-    {
-      type: "table",
-      header: {
-        values: headers,
-        align: "center",
-        presentation: "markdown",
-      },
-      cells: {
-        values,
-        align: "center",
-      },
-    },
-  ];
-
-  return (
-    <Plot data={data} layout={{ width: 500, height: 500, title: "Table" }} />
-  );
-};
-
-export default function Index({ date, close }) {
-  // const router = useRouter();
-
+export default function Index({ indexes, results}) {
   return (
     <Main
       wide={true}
@@ -52,53 +18,29 @@ export default function Index({ date, close }) {
         />
       }
     >
-      <OneSection>
-        <Card>
-          <Table />
-        </Card>
-      </OneSection>
+    <Landing results={results} indexes={indexes}/>
     </Main>
   );
 }
 
-function fetchCsv() {
-  return fetch(
-    "https://raw.githubusercontent.com/dream-faster/benchmarking-test/master/results/bitcoin.csv"
-  ).then(function (response) {
-    const reader = response.body.getReader();
-    const decoder = new TextDecoder("utf-8");
 
-    return reader.read().then(function (result) {
-      return decoder.decode(result.value);
-    });
-  });
-}
+export async function getStaticProps({ params }) {
+  const benchmark_results = await getAllResults()
+  
+  const results = benchmark_results.map(result=>{
+    const df = fromCSV(result);
+    const results = df.getSeries(df.getColumnNames()[1]).toArray();
 
-export async function getStaticProps() {
-  // const allPostsData = getSortedPostsData();
-  // const allTopicsData = getSortedTopicsData();
-
-  // const res = await fetch(
-  //   'https://raw.githubusercontent.com/dream-faster/benchmarking-test/master/results/model.csv'
-  // );
-  // const resultsData = await res.json();
-  // const bitcoin = await fetch(
-  //   'https://raw.githubusercontent.com/dream-faster/benchmarking-test/master/results/bitcoin.csv'
-  // );
-  const bitcoinData = await fetchCsv();
-
-  // raw.githubusercontent.com/Unsigned-Research/enoki-research/main/results.csv?token=GHSAT0AAAAAAB65Q4QLH63AHK64XZSFPI2CY77HANA
-
-  // const allTopicsData = allPostsData;
-
-  const df = fromCSV(bitcoinData);
-  const close = df.getSeries("Close").toArray();
-  const date = df.getSeries("Date").toArray();
+    return results
+  })
+  const df = fromCSV(benchmark_results[0]);
+  const indexes = df.getSeries(df.getColumnNames()[0]).toArray();
 
   return {
     props: {
-      date,
-      close,
+      indexes,
+      results,
     },
   };
 }
+

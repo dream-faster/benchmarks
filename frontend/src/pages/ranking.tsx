@@ -17,7 +17,7 @@ export default function Index({
         <Meta
           title="Topics >> Nowcasting Eval AI Studio"
           description="Independent R&D studio specialized in Artificial Intelligence and Nowcasting."
-          social_card_ending="models"
+          social_card_ending="datasets"
         />
       }
     >

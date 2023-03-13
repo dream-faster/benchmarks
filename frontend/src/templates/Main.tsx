@@ -1,9 +1,10 @@
-import { Router } from "next/router";
-import Script from "next/script";
-import type { ReactNode } from "react";
-import { useState } from "react";
+import { Router } from 'next/router';
+import Script from 'next/script';
+import type { ReactNode } from 'react';
+import { useState } from 'react';
+ 
+import { Nav } from '@/layouts/nav';
 
-import { Nav } from "@/layouts/Nav";
 
 type IMainProps = {
   meta: ReactNode;
@@ -34,10 +35,10 @@ export const Main = (props: IMainProps) => {
     <div className="min-h-full">
       {script}
       {props.meta}
-      <Nav />
-      <div className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
+      <Nav/>
+      {/* <div className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8"> */}
         {props.children}
-      </div>
-    </div> 
+      {/* </div> */}
+    </div>
   );
 };
