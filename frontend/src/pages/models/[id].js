@@ -43,11 +43,10 @@ export async function getStaticProps({ params }) {
 
     return results;
   });
-  console.log(benchmark_results)
+
   const df = fromCSV(benchmark_results[0]);
   const indexes = df.getSeries(df.getColumnNames()[0]).toArray();
-  console.log(indexes)
-  console.log(results)
+  
   return {
     props: {
       postData,
