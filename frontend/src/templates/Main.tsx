@@ -29,10 +29,10 @@ export const Main = (props: IMainProps) => {
         data-utcoffset="1"
       />
     );
-  Router.events.on('routeChangeComplete', handleRouteChange);
+  Router.events.on("routeChangeComplete", handleRouteChange);
 
   return (
-    <div className="h-full min-h-screen w-screen overflow-hidden bg-zinc-100 text-gray-700 antialiased dark:bg-slate-800">
+    <div className="min-h-full">
       {script}
       {props.meta}
       <Nav/>

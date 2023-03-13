@@ -1,7 +1,7 @@
 import Container from '@/components/Container';
 import List from '@/components/List';
 import { Meta } from '@/layouts/Meta';
-import { getSortedDatasets } from '@/lib/datasets';
+
 import { getSortedDatasetsOrModels } from '@/lib/finder';
 import { Main } from '@/templates/Main';
 
