@@ -23,8 +23,9 @@ export function ResultsTable({ indexes, results }) {
         <table className="min-w-full divide-y divide-gray-300">
           <thead>
             <tr>
-              {indexes.map((index) => (
+              {indexes.map((index, i) => (
                 <th
+                key={i}
                   scope="col"
                   className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
                 >
@@ -34,10 +35,10 @@ export function ResultsTable({ indexes, results }) {
             </tr>
           </thead>
           <tbody>
-            {results.map((result) => (
-              <tr>
-                {result.map((res) => (
-                  <td className="hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell">
+            {results.map((result,i) => (
+              <tr key={i}>
+                {result.map((res, j) => (
+                  <td key={j} className="hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell">
                     {res}
                   </td>
                 ))}
