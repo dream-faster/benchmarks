@@ -1,7 +1,9 @@
 name: benchmarks
 
 on:
-  push:
+  push: 
+    branches:
+      - main
     paths:
       - datasets/**
       - models/**
