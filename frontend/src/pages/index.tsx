@@ -1,45 +1,10 @@
-// import Plot from 'react-plotly.js';
-import dynamic from 'next/dynamic';
-
-import { Card } from '@/components/card';
 import { Meta } from '@/layouts/Meta';
 import { Main } from '@/templates/Main';
-import OneSection from '@/templates/OneSection';
+import { DataFrame, fromCSV, Series } from 'data-forge';
+import Landing from '@/components/Landing';
+import { getAllPostIds, getPostData, getResults } from '@/lib/datasets';
 
-const Plot = dynamic(() => import('react-plotly.js'), { ssr: false });
-const Table = (props) => {
-  const values = [
-    ['Books', 'Clothes', 'Medicals'],
-    [
-      '$22',
-      '$190',
-      '<a href="https://github.com/dream-faster/benchmarking-test">Link to site</a>',
-    ],
-  ];
-  const headers = [['<b> Item </b>'], ['<b> Expenditure </b>']];
-  const data = [
-    {
-      type: 'table',
-      header: {
-        values: headers,
-        align: 'center',
-        presentation: 'markdown',
-      },
-      cells: {
-        values,
-        align: 'center',
-      },
-    },
-  ];
-
-  return (
-    <Plot data={data} layout={{ width: 500, height: 500, title: 'Table' }} />
-  );
-};
-
-export default function Index() {
-  // const router = useRouter();
-
+export default function Index({results, indexes}) {
   return (
     <Main
       wide={true}
@@ -51,11 +16,30 @@ export default function Index() {
         />
       }
     >
-      <OneSection>
-        <Card>
-          <Table />
-        </Card>
-      </OneSection>
+    <Landing results={results} indexes={indexes}/>
     </Main>
   );
 }
+
+
+export async function getStaticProps({ params }) {
+  const benchmark_results = await getAllResults(params.id)
+  
+  const results = benchmark_results.map(result=>{
+    const df = fromCSV(result);
+    const results = df.getSeries(df.getColumnNames()[1]).toArray();
+
+    return results
+  })
+  const df = fromCSV(benchmark_results[0]);
+  const indexes = df.getSeries(df.getColumnNames()[0]).toArray();
+
+  return {
+    props: {
+      postData,
+      indexes,
+      results,
+    },
+  };
+}
+

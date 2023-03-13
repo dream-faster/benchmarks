@@ -47,12 +47,6 @@ export async function getStaticProps({ params }) {
   const indexes = df.getSeries(df.getColumnNames()[0]).toArray();
 
 
-  // console.log(indexes)
-  console.log(results)
-  // const filteredTopics = topicData.filter((topic) =>
-  //   postData.tag.split(',').includes(topic.tag.split(',')[0])
-  // );
-
   return {
     props: {
       postData,

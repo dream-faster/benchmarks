@@ -1,65 +1,4 @@
-/*
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/forms'),
-    ],
-  }
-  ```
-*/
-import { Fragment } from "react";
-import { Menu, Popover, Transition } from "@headlessui/react";
-import {
-  ArrowLongLeftIcon,
-  CheckIcon,
-  HandThumbUpIcon,
-  HomeIcon,
-  MagnifyingGlassIcon,
-  PaperClipIcon,
-  QuestionMarkCircleIcon,
-  UserIcon,
-} from "@heroicons/react/20/solid";
-import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import ResultsTable from "./ResultsTable";
-
-const breadcrumbs = [
-  { name: "Jobs", href: "#", current: false },
-  { name: "Front End Developer", href: "#", current: false },
-  { name: "Applicants", href: "#", current: true },
-];
-
-const eventTypes = {
-  created: { icon: UserIcon, bgColorClass: "bg-gray-400" },
-  updated: { icon: HandThumbUpIcon, bgColorClass: "bg-blue-500" },
-  benchmarked: { icon: CheckIcon, bgColorClass: "bg-green-500" },
-};
-const timeline = [
-  {
-    id: 1,
-    type: eventTypes.created,
-    content: "Created",
-    target: "NaiveSeasonal",
-    date: "Sep 20",
-    datetime: "2020-09-20",
-  },
-  {
-    id: 2,
-    type: eventTypes.updated,
-    content: "Added new model",
-    target: "NaiveAR",
-    date: "Sep 22",
-    datetime: "2020-09-22",
-  },
-];
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
+import {ResultsTable} from "./ResultsTable";
 
 export function ProjectPage({ metadata, indexes, results }) {
   return (
@@ -100,7 +39,7 @@ export function ProjectPage({ metadata, indexes, results }) {
                 </p>
               </div>
             </div>
-            <div className="justify-stretch mt-6 flex flex-col-reverse space-y-4 space-y-reverse sm:flex-row-reverse sm:justify-end sm:space-y-0 sm:space-x-3 sm:space-x-reverse md:mt-0 md:flex-row md:space-x-3">
+            {/* <div className="justify-stretch mt-6 flex flex-col-reverse space-y-4 space-y-reverse sm:flex-row-reverse sm:justify-end sm:space-y-0 sm:space-x-3 sm:space-x-reverse md:mt-0 md:flex-row md:space-x-3">
               <button
                 type="button"
                 className="inline-flex items-center justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
@@ -113,10 +52,10 @@ export function ProjectPage({ metadata, indexes, results }) {
               >
                 Upload your own dataset
               </button>
-            </div>
+            </div> */}
           </div>
 
-          <div className="mx-auto mt-8 grid max-w-3xl grid-cols-1 gap-6 sm:px-6 lg:max-w-7xl lg:grid-flow-col-dense lg:grid-cols-3">
+          <div className="mx-auto mt-8 grid max-w-3xl grid-cols-1 gap-6 sm:px-6 lg:max-w-7xl lg:grid-flow-col-dense lg:grid-cols-2">
             <div className="space-y-6 lg:col-span-2 lg:col-start-1">
                            {/* Results */}
                            <section aria-labelledby="notes-title">

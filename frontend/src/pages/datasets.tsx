@@ -2,6 +2,7 @@ import Container from '@/components/Container';
 import List from '@/components/List';
 import { Meta } from '@/layouts/Meta';
 import { getSortedDatasets } from '@/lib/datasets';
+import { getSortedDatasetsOrModels } from '@/lib/finder';
 import { Main } from '@/templates/Main';
 
 
@@ -24,7 +25,7 @@ export default function Index({
       }
     >
       <Container title="Datasets">
-        <List elements={allDatasets}/>
+        <List elements={allDatasets} baseUrl="datasets"/>
       </Container>
 
     </Main>
@@ -32,10 +33,7 @@ export default function Index({
 }
 
 export async function getStaticProps() {
-  // const allPostsData = getSortedTopicsData();
-
-  const allDatasets = await getSortedDatasets();
-  console.log(allDatasets)
+  const allDatasets = await getSortedDatasetsOrModels(1);
   return {
     props: {
       allDatasets

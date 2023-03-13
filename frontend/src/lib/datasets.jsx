@@ -80,12 +80,3 @@ export async function getResults(id) {
   const results = await readDir(id, resultsDirectory, 1);
   return results;
 }
-
-export async function getSortedDatasets() {
-  let datasets = await readDir(null, resultsDirectory, 1);
-  datasets.sort()
-  datasets = datasets.filter(onlyUnique)
-  console.log(datasets)
-  
-  return datasets;
-}

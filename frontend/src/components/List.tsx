@@ -5,13 +5,13 @@ import {
 } from "@heroicons/react/20/solid";
 import Link from "next/link";
 
-export default function List({ elements }: { elements: [] }) {
+export default function List({ elements, baseUrl }:{elements:[], baseUrl:string}) {
   return (
     <div className="overflow-hidden bg-white shadow sm:rounded-md">
       <ul role="list" className="divide-y divide-gray-200">
         {elements.map((element, i) => (
           <li key={i}>
-            <Link href={"/datasets/" + element}>
+            <Link href={`/${baseUrl}/` + element}>
               <a className="block hover:bg-gray-50">
                 <div className="flex items-center px-4 py-4 sm:px-6">
                   <div className="flex min-w-0 flex-1 items-center">
