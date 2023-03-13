@@ -2,11 +2,11 @@ name: benchmarks
 
 on:
   pull_request: 
-    paths:
-      - datasets/**
-      - models/**
-      - '!frontend/src/datasets/**'
-      - '!frontend/src/models/**'
+    # paths:
+      # - datasets/**
+      # - models/**
+      # - '!frontend/src/datasets/**'
+      # - '!frontend/src/models/**'
 
 permissions:
   contents: write
