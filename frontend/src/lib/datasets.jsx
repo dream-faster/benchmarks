@@ -4,6 +4,7 @@ import matter from "gray-matter";
 import path from "path";
 import { remark } from "remark";
 import html from "remark-html";
+import { onlyUnique } from "./utils";
 
 const postsDirectory = path.join(process.cwd(), "src/datasets");
 const resultsDirectory = path.join(process.cwd(), "results");
@@ -78,4 +79,13 @@ export async function getPostData(id) {
 export async function getResults(id) {
   const results = await readDir(id, resultsDirectory, 1);
   return results;
+}
+
+export async function getSortedDatasets() {
+  let datasets = await readDir(null, resultsDirectory, 1);
+  datasets.sort()
+  datasets = datasets.filter(onlyUnique)
+  console.log(datasets)
+  
+  return datasets;
 }
