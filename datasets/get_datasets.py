@@ -5,7 +5,6 @@ from typing import Callable, List
 from utils.iterable_helpers import get_values
 
 
-# List all datasets
 class all_dataset_names(Enum):
     m4 = "m4"
 
