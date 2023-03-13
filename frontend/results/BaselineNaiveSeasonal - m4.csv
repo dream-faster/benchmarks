@@ -1,6 +1,8 @@
 model_dataset_name,BaselineNaiveSeasonal - m4
 model,BaselineNaiveSeasonal
 dataset,m4
+current_date,2023-03-13 15:17:50
+training_time,0.44450070802122355
 Mean Absolute Error,346.0570418181818
 Mean Absolute Percentage Error,0.14180455119533486
 Symmetric Mean Absolute Percentage Error,0.06808886383180321
