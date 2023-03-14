@@ -1,7 +1,7 @@
 name: benchmarks
 
 on:
-  push: 
+  pull_request: 
     paths:
       - datasets/**
       - models/**
@@ -12,15 +12,11 @@ permissions:
   contents: write
 
 jobs:
-  run-tests:
+  benchmark:
     continue-on-error: true
     strategy:
       fail-fast: false
       matrix:
-        os:
-        - ubuntu-latest
-        python-version:
-        - "3.9"
         dataset:
         - "m4"
         model:
@@ -28,16 +24,19 @@ jobs:
         - "BaselineNaiveSeasonal"
 
 
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
 
     steps:
       - name: checkout
         uses: actions/checkout@v3
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.ref }}
 
       - name: setup-python
         uses: actions/setup-python@v4
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: 3.9
 
       - name: install-dependencies
         run: |
@@ -53,7 +52,8 @@ jobs:
         run: | 
           git config --global user.name "Github Action"
           git config --global user.email "info@dreamfaster.ai"
+          git fetch
           git pull
           git add -A
-          git diff --quiet && git diff --staged --quiet || git commit -m "feature(Result): Added new benchmarking results for m4 - BaselineNaive,BaselineNaiveSeasonal."
+          git diff --quiet && git diff --staged --quiet || git commit -m "feature(Result): Added new results for ${{ matrix.dataset }} - ${{ matrix.model }}"
           git push
