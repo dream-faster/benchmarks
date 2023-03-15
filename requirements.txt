@@ -1,4 +1,5 @@
 https://github.com/dream-faster/fold/archive/main.zip
+https://github.com/dream-faster/fold-models/archive/main.zip
 https://github.com/dream-faster/krisi/archive/main.zip
 pandas
 numpy
