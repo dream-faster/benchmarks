@@ -22,6 +22,8 @@ jobs:
         model:
         - "BaselineNaive"
         - "BaselineNaiveSeasonal"
+        - "StatsModelARIMAOne"
+        - "StatsForecastARIMAOne"
 
 
     runs-on: ubuntu-latest
