@@ -7,4 +7,4 @@ tag: "timeseries,uncertainity"
 favorite: true
 ---
 
-Naive Seasonal model
+BaselineNaiveSeasonal

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from enum import Enum
-from typing import List
+from typing import List, Union
 
 from fold.models.baseline import BaselineNaive, BaselineNaiveSeasonal
 from fold.transformations.base import BlocksOrWrappable
@@ -17,6 +19,16 @@ class AllModels(Enum):
     StatsModelARIMAOne = "StatsModelARIMAOne"
     StatsForecastARIMAOne = "StatsForecastARIMAOne"
 
+    @staticmethod
+    def from_str(value: Union[str, AllModels]) -> AllModels:
+        if isinstance(value, AllModels):
+            return value
+        for strategy in AllModels:
+            if strategy.value == value:
+                return strategy
+        else:
+            raise ValueError(f"Unknown AllModels: {value}")
+
 
 def get_all_models() -> List[BlocksOrWrappable]:
     return get_models(get_values(AllModels))
@@ -25,6 +37,7 @@ def get_all_models() -> List[BlocksOrWrappable]:
 def get_models(model_names: List[str]) -> List[BlocksOrWrappable]:
     models: List[BlocksOrWrappable] = []
     for model_name in model_names:
+        model_name = AllModels.from_str(model_name)
         if model_name == AllModels.BaselineNaive.value:
             models.append(BaselineNaive())
         elif model_name == AllModels.BaselineNaiveSeasonal.value:
