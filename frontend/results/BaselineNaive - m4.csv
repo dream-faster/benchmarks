@@ -1,8 +1,8 @@
 model_dataset_name,BaselineNaive - m4
 model,BaselineNaive
 dataset,m4
-current_date,2023-03-13 20:03:22
-training_time,1.355154388999992
+current_date,2023-03-15 19:10:17
+training_time,1.2523928130000286
 Mean Absolute Error,194.9346333333333
 Mean Absolute Percentage Error,0.07726002638470314
 Symmetric Mean Absolute Percentage Error,0.03809250284225237
