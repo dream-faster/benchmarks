@@ -21,7 +21,6 @@ def run_dataset_on_model(dataset: pd.DataFrame, model: BlocksOrWrappable) -> pd.
         splitter = SlidingWindowSplitter(0.2, 20)
         blocks_over_time = train(model, X, y, splitter)
         preds = backtest(blocks_over_time, X, y, splitter)
-        # smapes.append(score(y[preds.index], preds.squeeze())["smape"].result)
         dss.append(score(y[preds.index], preds.squeeze()).get_ds())
         weights.append(len(y))
 
