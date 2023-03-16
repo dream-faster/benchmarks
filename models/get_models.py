@@ -38,11 +38,11 @@ def get_models(model_names: List[str]) -> List[BlocksOrWrappable]:
     models: List[BlocksOrWrappable] = []
     for model_name in model_names:
         model_name = AllModels.from_str(model_name)
-        if model_name == AllModels.BaselineNaive.value:
+        if model_name == AllModels.BaselineNaive:
             models.append(BaselineNaive())
-        elif model_name == AllModels.BaselineNaiveSeasonal.value:
+        elif model_name == AllModels.BaselineNaiveSeasonal:
             models.append(BaselineNaiveSeasonal(seasonal_length=5))
-        elif model_name == AllModels.StatsModelARIMAOne.value:
+        elif model_name == AllModels.StatsModelARIMAOne:
             models.append(
                 WrapStatsModels(
                     StatsModelARIMA,
@@ -50,7 +50,7 @@ def get_models(model_names: List[str]) -> List[BlocksOrWrappable]:
                     use_exogenous=False,
                 )
             )
-        elif model_name == AllModels.StatsForecastARIMAOne.value:
+        elif model_name == AllModels.StatsForecastARIMAOne:
             models.append(
                 WrapStatsForecast(
                     StatsForecastARIMA,
