@@ -1,0 +1,14 @@
+model_dataset_name,WrapStatsForecast - m4
+model,WrapStatsForecast
+dataset,m4
+current_date,2023-03-16 09:08:24
+training_time,15.793937419000002
+Mean Absolute Error,333.9441778199787
+Mean Absolute Percentage Error,0.1476566207110896
+Symmetric Mean Absolute Percentage Error,0.06848549667078077
+Mean Squared Error,381245.33649809024
+Root Mean Squared Error,411.8576597090542
+Root Mean Squared Log Error,0.16926615184741822
+R-squared,-0.7065276366023229
+Mean of the Residuals,-18.337989028185962
+Standard Deviation of the Residuals,341.58414048079527
