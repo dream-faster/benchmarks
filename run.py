@@ -19,8 +19,8 @@ def run_dataset_on_model(dataset: pd.DataFrame, model: BlocksOrWrappable) -> pd.
         y = X[column].shift(-1)[:-1]
         X = X[:-1]
         splitter = SlidingWindowSplitter(0.2, 20)
-        blocks_over_time = train(model, X, y, splitter)
-        preds = backtest(blocks_over_time, X, y, splitter)
+        blocks_over_time = train(model, X, y, splitter, silent=True)
+        preds = backtest(blocks_over_time, X, y, splitter, silent=True)
         dss.append(score(y[preds.index], preds.squeeze()).get_ds())
         weights.append(len(y))
 
@@ -35,7 +35,7 @@ def run_datasets_on_models(
 ) -> pd.DataFrame:
     dfs = []
     for i, dataset in enumerate(datasets):
-        for j, model in enumerate(models):
+        for model in models:
             start = timer()
             ds = run_dataset_on_model(dataset, model)
             end = timer()
@@ -61,6 +61,6 @@ def run_datasets_on_models(
 
             dfs.append(ds_with_meta)
 
-    df_summary = pd.concat(dfs, axis=1)  # .transpose()
+    df_summary = pd.concat(dfs, axis=1)
     df_summary.index = df_summary.index.rename("model_dataset_name")
     return df_summary
